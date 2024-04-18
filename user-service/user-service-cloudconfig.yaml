@@ -25,5 +25,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
 #  instance:
 #    prefer-ip-address: true
