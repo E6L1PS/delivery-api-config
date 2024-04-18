@@ -29,6 +29,6 @@ management:
   endpoints:
     web:
       exposure:
-        include: *
+        include: '*'
 #  instance:
 #    prefer-ip-address: true
