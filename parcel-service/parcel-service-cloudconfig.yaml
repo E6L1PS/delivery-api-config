@@ -1,0 +1,14 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: parcel-service
+  data:
+    mongodb:
+      uri: mongodb://mongodb-parcel/parcel
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
