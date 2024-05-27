@@ -17,7 +17,7 @@ spring:
           predicates:
             - Path=/api/v1/account/swagger-ui/**
           filters:
-            - RewritePath=/api/v1/account/(?<segment>.*), /swagger-ui/${segment}
+            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
@@ -29,13 +29,13 @@ spring:
           predicates:
             - Path=/api/v1/delivery/swagger-ui/**
           filters:
-            - RewritePath=/api/v1/delivery/(?<segment>.*), /swagger-ui/${segment}
+            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
         - id: parcel-service
           uri: lb://parcel-service
           predicates:
             - Path=/api/v1/parcel/**
           filters:
-            - RewritePath=/api/v1/parcel/(?<segment>.*), /${segment}
+            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
 #      discovery:
 #        locator:
 #          enabled: true
