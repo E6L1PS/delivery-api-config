@@ -9,18 +9,21 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/api/v1/**
-            - Path=/swagger-ui/index.html#/
+            - Path=/api/v1/account/**
+          filters:
+            - RewritePath=/api/v1/account/(?<segment>.*), /${segment}
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
-            - Path=/api/v1/**
-            - Path=/swagger-ui/index.html#/
+            - Path=/api/v1/delivery/**
+          filters:
+            - RewritePath=/api/v1/delivery/(?<segment>.*), /${segment}
         - id: parcel-service
           uri: lb://parcel-service
           predicates:
-            - Path=/api/v1/**
-            - Path=/swagger-ui/index.html#/
+            - Path=/api/v1/parcel/**
+          filters:
+            - RewritePath=/api/v1/parcel/(?<segment>.*), /${segment}
 #      discovery:
 #        locator:
 #          enabled: true
