@@ -12,6 +12,12 @@ spring:
             - Path=/api/v1/account/**
           filters:
             - RewritePath=/api/v1/account/(?<segment>.*), /${segment}
+        - id: user-service-swagger
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/account/swagger-ui/**
+          filters:
+            - RewritePath=/api/v1/account/(?<segment>.*), /swagger-ui/${segment}
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
