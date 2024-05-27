@@ -9,15 +9,18 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/api/v1/user/**
+            - Path=/api/v1/**
+            - Path=/swagger-ui/index.html#/
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
-            - Path=/api/v1/delivery/**
+            - Path=/api/v1/**
+            - Path=/swagger-ui/index.html#/
         - id: parcel-service
           uri: lb://parcel-service
           predicates:
-            - Path=/api/v1/parcel/**
+            - Path=/api/v1/**
+            - Path=/swagger-ui/index.html#/
 #      discovery:
 #        locator:
 #          enabled: true
