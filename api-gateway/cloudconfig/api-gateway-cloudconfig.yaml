@@ -5,10 +5,23 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/user/**
+        - id: delivery-service
+          uri: lb://delivery-service
+          predicates:
+            - Path=/api/v1/delivery/**
+        - id: parcel-service
+          uri: lb://parcel-service
+          predicates:
+            - Path=/api/v1/parcel/**
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
 eureka:
   client:
     service-url:
