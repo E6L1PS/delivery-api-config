@@ -5,37 +5,41 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/api/v1/account/**
-          filters:
-            - RewritePath=/api/v1/account/(?<segment>.*), /${segment}
-        - id: user-service-swagger
-          uri: lb://user-service
-          predicates:
-            - Path=/api/v1/account/swagger-ui/**
-          filters:
-            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
-        - id: delivery-service
-          uri: lb://delivery-service
-          predicates:
-            - Path=/api/v1/delivery/**
-          filters:
-            - RewritePath=/api/v1/delivery/(?<segment>.*), /${segment}
-        - id: delivery-service-swagger
-          uri: lb://delivery-service
-          predicates:
-            - Path=/api/v1/delivery/swagger-ui/**
-          filters:
-            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
-        - id: parcel-service
-          uri: lb://parcel-service
-          predicates:
-            - Path=/api/v1/parcel/**
-          filters:
-            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+#      routes:
+#        - id: user-service
+#          uri: lb://user-service
+#          predicates:
+#            - Path=/api/v1/account/**
+#          filters:
+#            - RewritePath=/api/v1/account/(?<segment>.*), /${segment}
+#        - id: user-service-swagger
+#          uri: lb://user-service
+#          predicates:
+#            - Path=/api/v1/account/swagger-ui/**
+#          filters:
+#            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
+#        - id: delivery-service
+#          uri: lb://delivery-service
+#          predicates:
+#            - Path=/api/v1/delivery/**
+#          filters:
+#            - RewritePath=/api/v1/delivery/(?<segment>.*), /${segment}
+#        - id: delivery-service-swagger
+#          uri: lb://delivery-service
+#          predicates:
+#            - Path=/api/v1/delivery/swagger-ui/**
+#          filters:
+#            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
+#        - id: parcel-service
+#          uri: lb://parcel-service
+#          predicates:
+#            - Path=/api/v1/parcel/**
+#          filters:
+#            - RewritePath=/swagger-ui/(?<segment>.*), /swagger-ui/${segment}
 #      discovery:
 #        locator:
 #          enabled: true
