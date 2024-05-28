@@ -23,8 +23,8 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: retailBankCircuitBreaker
-                fallbackUri: forward:/fallback/retailBankFallback
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/user
 #        - id: user-service-swagger
 #          uri: lb://user-service
 #          predicates:
@@ -36,8 +36,8 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: retailBankCircuitBreaker
-                fallbackUri: forward:/fallback/retailBankFallback
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/delivery
 #        - id: delivery-service-swagger
 #          uri: lb://delivery-service
 #          predicates:
@@ -49,8 +49,8 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: retailBankCircuitBreaker
-                fallbackUri: forward:/fallback/retailBankFallback
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/parcel
 eureka:
   client:
     service-url:
