@@ -3,12 +3,12 @@ server:
 spring:
   application:
     name: api-gateway
-  data:
-    redis:
-      database: 0
-      host: localhost
-      port: 6379
-      timeout: 60000
+#  data:
+#    redis:
+#      database: 0
+#      host: localhost
+#      port: 6379
+#      timeout: 60000
   cloud:
     gateway:
       discovery:
