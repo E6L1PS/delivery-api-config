@@ -21,6 +21,7 @@ spring:
           predicates:
             - Path=/api/v1/account/**
           filters:
+            - LocalResponseCache=30m,500MB
             - name: CircuitBreaker
               args:
                 name: circuitBreakerInstance
