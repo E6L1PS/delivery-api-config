@@ -29,6 +29,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/user
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
 #        - id: user-service-swagger
 #          uri: lb://user-service
 #          predicates:
@@ -42,6 +47,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/delivery
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
 #        - id: delivery-service-swagger
 #          uri: lb://delivery-service
 #          predicates:
@@ -55,6 +65,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/parcel
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
 eureka:
   client:
     service-url:
