@@ -9,55 +9,55 @@ spring:
       host: localhost
       port: 6379
       timeout: 60000
-  cloud:
-    gateway:
-      filter:
-        local-response-cache:
-          enabled: true
-#      discovery:
-#        locator:
+#  cloud:
+#    gateway:
+#      filter:
+#        local-response-cache:
 #          enabled: true
-#          lower-case-service-id: true
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/api/v1/account/**
-          filters:
-#            - LocalResponseCache=30m,500MB
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
-#        - id: user-service-swagger
+##      discovery:
+##        locator:
+##          enabled: true
+##          lower-case-service-id: true
+#      routes:
+#        - id: user-service
 #          uri: lb://user-service
 #          predicates:
-#            - Path=/api/v1/account/swagger-ui/**
-        - id: delivery-service
-          uri: lb://delivery-service
-          predicates:
-            - Path=/api/v1/delivery/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
-#        - id: delivery-service-swagger
+#            - Path=/api/v1/account/**
+#          filters:
+##            - LocalResponseCache=30m,500MB
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
+##        - id: user-service-swagger
+##          uri: lb://user-service
+##          predicates:
+##            - Path=/api/v1/account/swagger-ui/**
+#        - id: delivery-service
 #          uri: lb://delivery-service
 #          predicates:
-#            - Path=/api/v1/delivery/swagger-ui/**
-        - id: parcel-service
-          uri: lb://parcel-service
-          predicates:
-            - Path=/api/v1/parcel/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
+#            - Path=/api/v1/delivery/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
+##        - id: delivery-service-swagger
+##          uri: lb://delivery-service
+##          predicates:
+##            - Path=/api/v1/delivery/swagger-ui/**
+#        - id: parcel-service
+#          uri: lb://parcel-service
+#          predicates:
+#            - Path=/api/v1/parcel/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
 eureka:
   client:
     service-url:
@@ -72,3 +72,18 @@ management:
       show-details: always
     gateway:
       enabled: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+  timelimiter:
+    configs:
+      defauil:
+        timeout-duration: 3s
