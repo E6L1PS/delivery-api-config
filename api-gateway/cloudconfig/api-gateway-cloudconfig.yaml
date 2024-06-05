@@ -3,17 +3,17 @@ server:
 spring:
   application:
     name: api-gateway
-  data:
-    redis:
-      database: 0
-      host: localhost
-      port: 6379
-      timeout: 60000
+#  data:
+#    redis:
+#      database: 0
+#      host: localhost
+#      port: 6379
+#      timeout: 60000
   cloud:
     gateway:
-      filter:
-        local-response-cache:
-          enabled: true
+#      filter:
+#        local-response-cache:
+#          enabled: true
       routes:
         - id: user-service
           uri: lb://user-service
@@ -24,11 +24,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/user
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
@@ -38,11 +38,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/delivery
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
         - id: parcel-service
           uri: lb://parcel-service
           predicates:
@@ -52,11 +52,11 @@ spring:
               args:
                 name: circuitBreakerInstance
                 fallbackUri: forward:/fallback/parcel
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 10
+#                redis-rate-limiter.burstCapacity: 20
+#                redis-rate-limiter.requestedTokens: 1
 eureka:
   client:
     service-url:
