@@ -25,6 +25,10 @@ spring:
             - Path=/api/v1/account/**
           filters:
 #            - LocalResponseCache=30m,500MB
+            - name: CircuitBreaker
+              args:
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/user
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 10
@@ -39,6 +43,10 @@ spring:
           predicates:
             - Path=/api/v1/delivery/**
           filters:
+            - name: CircuitBreaker
+              args:
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/delivery
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 10
@@ -53,6 +61,10 @@ spring:
           predicates:
             - Path=/api/v1/parcel/**
           filters:
+            - name: CircuitBreaker
+              args:
+                name: circuitBreakerInstance
+                fallbackUri: forward:/fallback/parcel
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 10
@@ -72,18 +84,3 @@ management:
       show-details: always
     gateway:
       enabled: true
-#resilience4j:
-#  circuitbreaker:
-#    configs:
-#      default:
-#        register-health-indicator: true
-#        sliding-window-type: COUNT_BASED
-#        sliding-window-size: 10
-#        failure-rate-threshold: 50
-#        wait-duration-in-open-state: 5s
-#        permitted-number-of-calls-in-half-open-state: 3
-#        automatic-transition-from-open-to-half-open-enabled: true
-#  timelimiter:
-#    configs:
-#      defauil:
-#        timeout-duration: 3s
