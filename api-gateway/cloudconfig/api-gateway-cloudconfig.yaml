@@ -14,17 +14,12 @@ spring:
       filter:
         local-response-cache:
           enabled: true
-#      discovery:
-#        locator:
-#          enabled: true
-#          lower-case-service-id: true
       routes:
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/api/v1/account/**
           filters:
-#            - LocalResponseCache=30m,500MB
             - name: CircuitBreaker
               args:
                 name: circuitBreakerInstance
@@ -34,10 +29,6 @@ spring:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
                 redis-rate-limiter.requestedTokens: 1
-#        - id: user-service-swagger
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/api/v1/account/swagger-ui/**
         - id: delivery-service
           uri: lb://delivery-service
           predicates:
@@ -52,10 +43,6 @@ spring:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
                 redis-rate-limiter.requestedTokens: 1
-#        - id: delivery-service-swagger
-#          uri: lb://delivery-service
-#          predicates:
-#            - Path=/api/v1/delivery/swagger-ui/**
         - id: parcel-service
           uri: lb://parcel-service
           predicates:
